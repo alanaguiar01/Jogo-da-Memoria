@@ -97,15 +97,12 @@ export default class Board {
             square.innerHTML = `<img class="imageSquare" src="${this.tmpBoard[position].picture}">`
             if (this.gameOver()) {
                 this.pause()
-                if (this.pause) {
-                    this.record()
-                    this.restartGame()
-                }
+                this.record()
+                this.restartGame()
             }
         }, 100)
 
     }
-
     checkCard = () => {
         if (!this.firstCard || !this.secondCard) {
             return false;
@@ -132,32 +129,37 @@ export default class Board {
         let restart = document.querySelector('#restart')
         let name = document.querySelector('#name')
         modal2.style.display = 'flex'
-        if (this.restartGame) {
-            nice.innerText = `Parabéns ${String(name.value)}, agora bata seu recorde!`
-            restart.addEventListener('click', () => {
-                modal2.style.display = 'none'
-                document.querySelectorAll('.square').forEach(cards => {
-                    cards.classList.remove('flip')
-                    cards.innerHTML = `<div></div>`
-                    cards.style.backgroundImage = 'url(./images/innovation.png)'
-                })
-                this.tmpBoard = this.shuffle(this.tmpBoard)
-                this.start()
-                this.reset()
+        nice.innerText = `Parabéns ${String(name.value)}, agora bata seu recorde!`
+        restart.onclick = () => {
+            modal2.style.display = 'none'
+            document.querySelectorAll('.square').forEach(cards => {
+                cards.classList.remove('flip')
+                cards.innerHTML = ''
+                cards.style.backgroundImage = 'url(./images/innovation.png)'
             })
-            document.querySelector('#modal-bg2').style.display = 'flex'
+            this.tmpBoard = []
+            for (let i = 0; i < Figures.number; i++) {
+                this.tmpBoard.push(Figures.get(i))
+                this.tmpBoard.push(Figures.get(i))
+            }
+            this.tmpBoard = this.shuffle(this.tmpBoard)
+            this.start()
+            this.reset()
         }
     }
 
     record = () => {
-        this.storage.push(this.minute)
-        this.storage.push(this.second)
-        if (this.minute < this.storage[0] || this.minute == this.storage[0]) {
-            document.querySelector('#minuteR').innerHTML = `${String(this.minute)}m`
+        let totalSeconds = this.minute * 60 + this.second;
+        if (this.storage.length === 0) {
+            this.storage = [this.minute, this.second, totalSeconds];
+        } else {
+            let recordSeconds = this.storage[2];
+            if (totalSeconds < recordSeconds) {
+                this.storage = [this.minute, this.second, totalSeconds];
+            }
         }
-        if (this.second < this.storage[1] || this.second == this.storage[1]) {
-            document.querySelector('#secondR').innerHTML = `${String(this.second)}s`
-        }
+        document.querySelector('#minuteR').innerHTML = String(this.storage[0]).padStart(2, '0');
+        document.querySelector('#secondR').innerHTML = String(this.storage[1]).padStart(2, '0');
     }
 
     start = () => {
@@ -176,8 +178,8 @@ export default class Board {
         }
 
         const formatNumber = number => number >= 10 ? number : `0${number}`
-        document.getElementById('minute').innerText = `${formatNumber(this.minute)}m`;
-        document.getElementById('second').innerText = `${formatNumber(this.second)}s`;
+        document.getElementById('minute').innerText = formatNumber(this.minute);
+        document.getElementById('second').innerText = formatNumber(this.second);
     }
 
     reset = () => {
