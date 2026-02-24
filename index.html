@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,20 +8,33 @@
     <title>Memory Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <section id="modal-bg">
         <div class="modal">
-            <p class="p1">Digite seu nome:</p>
-            <p class="p2">Quando começar, iniciara o cronometro. Espere as cartas virarem para clicar na proxima carta.</p>
+            <h2 class="modal-title">Jogo da Memória</h2>
+            <p class="p1">Digite seu nome para iniciar</p>
+            <p class="p2">O cronômetro iniciará assim que o jogo começar. Encontre todos os pares no menor tempo
+                possível!</p>
             <div class="actions">
-                <input type="text" id="name" placeholder="your name">
+                <input type="text" id="name" placeholder="Seu nome">
                 <button id="continue">Começar</button>
             </div>
         </div>
     </section>
-    <div id="record">
-        Record:<span id="minuteR">00</span>:<span id="secondR">00</span>
-    </div>
+    </section>
+
+    <header id="game-stats">
+        <div class="stat-box" id="timeDiv">
+            <span class="stat-label">Tempo:</span>
+            <span class="stat-value"><span id="minute">00</span>:<span id="second">00</span></span>
+        </div>
+        <div class="stat-box" id="record">
+            <span class="stat-label">Recorde:</span>
+            <span class="stat-value"><span id="minuteR">00</span>:<span id="secondR">00</span></span>
+        </div>
+    </header>
+
     <section id="board">
         <div id="0" class="square"></div>
         <div id="1" class="square"></div>
@@ -43,9 +57,6 @@
         <div id="18" class="square"></div>
         <div id="19" class="square"></div>
     </section>
-    <div id="timeDiv">
-        Time:<span id="minute">00</span>:<span id="second">00</span>
-    </div>
     <section id="modal-bg2">
         <div id="modal2">
             <p class="p3"></p>
@@ -53,6 +64,7 @@
         </div>
     </section>
     </div>
-<script src="script.js" type="module"></script>    
+    <script src="script.js" type="module"></script>
 </body>
-</html> 
+
+</html>

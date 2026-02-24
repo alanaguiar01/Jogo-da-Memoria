@@ -1,191 +1,326 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
 }
-html{
+
+html {
     background-image: url(./images/mente-humana-3.jpg);
 }
 
-body{
-    height: 100vh;
+body {
+    min-height: 100vh;
     width: 100vw;
+    max-width: 100%;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding-top: 120px;
+    padding-bottom: 40px;
 }
 
-#board{
-   display: grid;
-   grid-template-columns: auto auto auto auto;
-   grid-template-rows: auto auto auto auto auto;
-   justify-content: center;
-   background-color: black;
-   height: 85vh;
-   grid-gap: 1em;
+#board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    justify-content: center;
+    background-color: rgba(20, 20, 20, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    grid-gap: 1em;
+    max-width: 600px;
 }
 
-#modal-bg{
+#modal-bg {
     position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
     width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.85);
+    /* Darker backdrop */
+    backdrop-filter: blur(5px);
+    /* Modern blur effect */
     justify-content: center;
     align-items: center;
 }
 
-.modal{
-    background-color: white;
-    height: 25vh;
-    width: calc(29vw - 30px);
-    margin: 0 auto;
+.modal {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    animation: popIn 0.3s ease-out;
 }
 
-.actions{
+@keyframes popIn {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-title {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.actions {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 15px;
+    width: 100%;
 }
 
-#modal-bg2{
+.actions input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    margin-bottom: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.actions input:focus {
+    border-color: #6C5CE7;
+}
+
+.actions button {
+    width: 100%;
+    background-color: #6C5CE7;
+    color: white;
+    border: none;
+    padding: 12px 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.actions button:hover {
+    background-color: #5A48D5;
+}
+
+.actions button:active {
+    transform: scale(0.98);
+}
+
+#modal-bg2 {
     position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
     width: 100%;
     height: 100vh;
     display: none;
     flex-direction: column;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
     justify-content: center;
     align-items: center;
 }
 
-#modal2{
+#modal2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    height: 15vh;
-    width: 28vh;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 350px;
     background-color: white;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    animation: popIn 0.3s ease-out;
 }
 
-#modal2 #restart{
-    width: calc(100% - 50px);
-    margin: 0 auto;
-    height: 4vh;
-}
-
-.modal2{
-    background-color: white;
-    height: 150px;
-    width: 100px;
-}
-
-.modal .p1, .p3{
+#modal2 #restart {
+    width: 100%;
+    background-color: #00b894;
+    color: white;
+    border: none;
+    padding: 12px 0;
     font-family: 'Poppins', sans-serif;
-    font-size: 20px;
-    margin: 10px 2px;
-    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 15px;
 }
 
-.modal .p2{
+#modal2 #restart:hover {
+    background-color: #00997A;
+}
+
+#modal2 #restart:active {
+    transform: scale(0.98);
+}
+
+.modal .p1,
+.p3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 10px 0;
+    color: #2d3436;
+}
+
+.modal .p2 {
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
-    margin: 10px 0;
+    color: #636e72;
+    margin: 10px 0 20px 0;
 }
 
-.actions button{
-    margin: 20px 0;
-    height: 50px;
-    width: 100px;
-}
-
-#record{
+/* Modern Header for Timers */
+#game-stats {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
-    justify-content: space-around;
-    height: 25px;
-    width: 400px;
-    background-color: black;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 500;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 25px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 120px;
+}
+
+.stat-label {
+    color: #a8a8a8;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
     color: white;
     font-family: 'Poppins', sans-serif;
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
-.square{
-    width: 120px;
-    height: 150px;
+.square {
+    width: 100px;
+    height: 100px;
     background-image: url(./images/innovation.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain; 
-    background-color: red;
-    border-radius: 10px; 
+    background-size: cover;
+    background-color: #3b3b3b;
+    border-radius: 12px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.imageSquare{
-    width: 100%;
+.square:not(.flip):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.imageSquare {
+    width: 70%;
+    height: 70%;
     object-fit: contain;
+    /* Fix image aspect ratio scaling */
     transform: rotateY(180deg);
     pointer-events: none;
 }
 
-.flip{
-    background-color: grey;
-    transition: transform 0.9s;
+.flip {
+    background-color: #efefef;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
     transform-style: preserve-3d;
     transform: rotateY(180deg);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
-#timeDiv{
-    display: flex;
-    justify-content: space-around;
-    height: 25px;
-    width: 400px;
-    background-color: black;
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    font-size: 20px;
-}
-@media screen and (max-width: 425px){
-    .modal{
-        width: 200px;
+@media screen and (max-width: 425px) {
+    #game-stats {
+        gap: 10px;
+        padding: 10px;
     }
-    .square{
+
+    .stat-box {
+        min-width: 90px;
+        padding: 5px 15px;
+    }
+
+    .stat-value {
+        font-size: 18px;
+    }
+
+    .modal {
+        padding: 20px;
+    }
+
+    .square {
         width: 70px;
-        height: 100px;
-        margin: 0 3px;
+        height: 70px;
     }
-    #board{
+
+    #board {
         grid-gap: 0.5em;
-    }
-    #record, #timeDiv{
-        width: 60%;
+        padding: 15px;
+        margin-top: 70px;
     }
 }
-@media screen and (max-width: 375px){
-    .square{
-        width: 65px;
-        height: 110px;
 
+@media screen and (max-width: 375px) {
+    .square {
+        width: 60px;
+        height: 60px;
     }
-    #board{
-        width: auto;
-        height: auto;
-        grid-gap: 0.2em;
-    }
-    .modal{
-        height: 250px;
-    }
-    .modal2{
-        height: 20vh
+
+    #board {
+        width: 100%;
+        max-width: 350px;
+        grid-gap: 0.3em;
+        padding: 10px;
     }
 }
